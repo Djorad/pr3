@@ -2,49 +2,43 @@ import java.io.*;
 
 public class main {
     public static void main(String[] args) {
-        System.out.println("=== Задание 1: Создание классов и объектов ===");
+        System.out.println("=== Задание 4: Параметры методов ===");
 
-        // Создаем файл для записи (очищаем если существует)
+        // Очищаем файл курсов перед записью
         try {
-            new PrintWriter("students.txt").close();
+            new PrintWriter("courses.txt").close();
+            System.out.println("Файл courses.txt очищен");
         } catch (FileNotFoundException e) {
             System.out.println("Не удалось очистить файл: " + e.getMessage());
         }
 
-        // Создание первого объекта Student
-        Student student1 = new Student();
-        student1.name = "Иван Иванов";
-        student1.studentId = 1001;
+        // Создание объекта Student
+        System.out.println("\nСоздание студента:");
+        Student student = new Student("Андрей Козлов", 4001);
 
-        // Создание второго объекта Student
-        Student student2 = new Student();
-        student2.name = "Мария Петрова";
-        student2.studentId = 1002;
+        // Добавление курсов с помощью метода addCourse()
+        System.out.println("\nДобавление курсов через addCourse():");
+        student.addCourse("Java Programming");
+        student.addCourse("Database Systems");
+        student.addCourse("Algorithms and Data Structures");
 
-        // Вывод информации в консоль
-        System.out.println("Созданы объекты Student:");
-        System.out.println("1. " + student1.name + " (ID: " + student1.studentId + ")");
-        System.out.println("2. " + student2.name + " (ID: " + student2.studentId + ")");
+        // Вывод списка курсов
+        System.out.println("\nВызов listCourses() для отображения курсов:");
+        student.listCourses();
 
-        // Сохранение информации в файл
-        student1.saveToFile("students.txt");
-        student2.saveToFile("students.txt");
+        // Добавление курсов через переменное число аргументов
+        System.out.println("\nДобавление курсов через listCourses() с параметрами:");
+        student.listCourses("Web Development", "Software Engineering", "Computer Networks");
 
-        System.out.println("\nПроверьте файл students.txt в текущей директории.");
-        System.out.println("Для разных ОС путь к файлу:");
-        System.out.println("- Windows: текущая_папка\\students.txt");
-        System.out.println("- Linux/Mac: текущая_папка/students.txt");
+        // Еще один вызов для проверки накопленных курсов
+        System.out.println("\nИтоговый список курсов:");
+        student.listCourses();
 
-        // Проверка ОС
-        String osName = System.getProperty("os.name").toLowerCase();
-        System.out.println("\nТекущая операционная система: " + osName);
+        // Вывод полной информации о студенте
+        System.out.println("\nПолная информация о студенте:");
+        student.printInfo();
 
-        if (osName.contains("win")) {
-            System.out.println("Вы используете Windows");
-        } else if (osName.contains("nix") || osName.contains("nux") || osName.contains("mac")) {
-            System.out.println("Вы используете Unix-подобную систему (Linux/Mac)");
-        } else {
-            System.out.println("Неизвестная ОС");
-        }
+        System.out.println("\nВсе данные о курсах сохранены в файл courses.txt");
+        System.out.println("Проверьте содержимое файла.");
     }
 }
